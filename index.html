@@ -1,8 +1,8 @@
 <html lang="zh">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <META HTTP-EQUIV="imagetoolbar" CONTENT="no">  
-<!--    <title>学生进出学校核验</title>-->
+    <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+    <!--    <title>学生进出学校核验</title>-->
     <title>学生进出学校核验</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="./fx_files/weui.css">
@@ -23,8 +23,11 @@
         }
         //使用定时器每秒向div写入当前时间
         setInterval("getDate()",1000);
+
+
+
     </script>
-<!--    <script src="./fx_files/safe.js"></script>-->
+    <!--    <script src="./fx_files/safe.js"></script>-->
     <style>
      @keyframes scaleDraw {
         /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
@@ -88,48 +91,65 @@
         }
     }
 
+
+
+
     </style>
 </head>
 <body>
 
 
-    <div class="page-hd cl0"></div>
-    <div class="page-hd cl1">
+<div class="page-hd cl0"></div>
+<div class="page-hd cl1">
+</div>
+<div class="page-hd cl2">
+    <p style="font-size: 30px; font-family: STHeiti; font-weight: bold;" align="center">黄梓聪</p>
+</div>
+<div class="page-hd cl3" style=" text-align: center;float:none;">
+    <p style="font-size: 20px; text-align:center;">202130181143</p>
+    <p style="font-size: 16px; text-align:center;">经济学院</p>
+    <p style="font-size: 16px; text-align:center;">
+    </p>
+    <div id="qr" class="tcenter" style="padding: 10px;height:170px;">
+        <a href=""><img class="zp" width="140px" height="160px" src="cssjs/imgs/fail.jpg"></a>
     </div>
-    <div class="page-hd cl2">
-        <p style="font-size: 30px; font-family: STHeiti; font-weight: bold;" align="center">黄梓聪</p>
-    </div>
-    <div class="page-hd cl3" style=" text-align: center;float:none;">
-        <p style="font-size: 20px; text-align:center;">202130181143</p>
-        <p style="font-size: 16px; text-align:center;">经济学院</p>
-        <p style="font-size: 16px; text-align:center;">
-        </p>
-        <div id="qr" class="tcenter" style="padding: 10px;height:170px;">
-<a href=""><img class="zp" width="140px" height="160px" src="cssjs/imgs/fail.jpg"></a>
-        </div>
 
-        <p style="font-size: 16px; text-align:center;">
-        </p>
-        <p style="font-size: 16px; font-weight: 200;" align="center"></p>
-    </div>
-    <div class="page-hd cl4">
-        <p style="font-size: 20px; font-weight:bold;" align="center"><span id='times'></span></p>
-    </div>
-    <div class="page-hd cl5">
-            <p style="font-size: 20px; font-weight:bold;text-align: center; margin-top: -30px;">           
-174            </p>
-    </div>  
-            <div id="colorDIV" class="page-hd cl6 cl6_blue" permit="blue">        
-                <p style=" color:#fff;   font-size: 25px;  font-weight: 200;" align="center" class="bUtonadaLij">予以通行</p>
-                <p style=" color:#fff;   font-size: 15px;  font-weight: 200; text-align: center; margin-top: 5px;">随机码：</p>
-            </div>
+    <p style="font-size: 16px; text-align:center;">
+    </p>
+    <p style="font-size: 16px; font-weight: 200;" align="center"></p>
+</div>
+<div class="page-hd cl4">
+    <p style="font-size: 20px; font-weight:bold;" align="center"><span id='times'></span></p>
+</div>
+<div class="page-hd cl5">
+    <p style="font-size: 20px; font-weight:bold;text-align: center; margin-top: -30px;">
+        <span id='times_id'></span></p>
+    <script language="javascript">
+        //获取当前时间
+        var date = new Date();
+        //格式化为时间字符串
+        var date1 = date.toString();
+        var str = date1;
+        //获得第一个:的位置
+        var index = str.indexOf(":");
+        //截取字符串,得到结果result
+        var hour = str.substring(index-2,index);
+        var min = str.substring(index+1,index+3);
+        //根据小时和分钟数大致线性回归“已通行人数”，17点时为150人，18点为175人
+        var today_min = hour * 60 + min * 1
+        var times_id = Math.round(- 275 + 0.4167 * today_min)
+        document.getElementById("times_id").innerText = times_id;
+    </script>
+</div>
+<div id="colorDIV" class="page-hd cl6 cl6_blue" permit="blue">
+    <p style=" color:#fff;   font-size: 25px;  font-weight: 200;" align="center" class="bUtonadaLij">予以通行</p>
+    <p style=" color:#fff;   font-size: 15px;  font-weight: 200; text-align: center; margin-top: 5px;">随机码：</p>
+</div>
 
 
-    <div class="page-hd cl7"></div>
-    <div class="page-hd cl8"></div>
+<div class="page-hd cl7"></div>
+<div class="page-hd cl8"></div>
 
 
-    
-            
 </body>
 </html>  
