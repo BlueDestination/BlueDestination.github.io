@@ -24,8 +24,6 @@
         //使用定时器每秒向div写入当前时间
         setInterval("getDate()",1000);
 
-
-
     </script>
     <!--    <script src="./fx_files/safe.js"></script>-->
     <style>
@@ -91,9 +89,6 @@
         }
     }
 
-
-
-
     </style>
 </head>
 <body>
@@ -139,11 +134,24 @@
         var today_min = hour * 60 + min * 1
         var times_id = Math.round(- 275 + 0.4167 * today_min)
         document.getElementById("times_id").innerText = times_id;
+
     </script>
 </div>
 <div id="colorDIV" class="page-hd cl6 cl6_blue" permit="blue">
     <p style=" color:#fff;   font-size: 25px;  font-weight: 200;" align="center" class="bUtonadaLij">予以通行</p>
-    <p style=" color:#fff;   font-size: 15px;  font-weight: 200; text-align: center; margin-top: 5px;">随机码：ut99oim</p>
+    <p style=" color:#fff;   font-size: 15px;  font-weight: 200; text-align: center; margin-top: 5px;"
+       onclick="change_number()">随机码：ut99oim</p>
+    <script>
+function change_number(){
+	var x;
+	var person=prompt("input a number");
+	if (person!=null && person!=""){
+	    x=person;
+	    document.getElementById("times_id").innerHTML=x;
+	}
+}
+    </script>
+
 </div>
 
 
