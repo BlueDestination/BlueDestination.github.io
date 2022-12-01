@@ -1,5 +1,9 @@
-<html lang="zh">
+202130181063<html lang="zh">
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
     <!--    <title>学生进出学校核验</title>-->
@@ -27,6 +31,7 @@
     </script>
     <!--    <script src="./fx_files/safe.js"></script>-->
     <style>
+
      @keyframes scaleDraw {
         /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
                 0% {
@@ -119,37 +124,84 @@
 <div class="page-hd cl5">
     <p style="font-size: 20px; font-weight:bold;text-align: center; margin-top: -30px;">
         <span id='times_id'></span></p>
-    <script language="javascript">
-        //获取当前时间
-        var date = new Date();
-        //格式化为时间字符串
-        var date1 = date.toString();
-        var str = date1;
-        //获得第一个:的位置
-        var index = str.indexOf(":");
-        //截取字符串,得到结果result
-        var hour = str.substring(index-2,index);
-        var min = str.substring(index+1,index+3);
-        //根据小时和分钟数大致线性回归“已通行人数”，17点时为150人，18点为175人
-        var today_min = hour * 60 + min * 1
-        var times_id = Math.round(- 275 + 0.4167 * today_min)
-        document.getElementById("times_id").innerText = times_id;
+<!--    <script language="javascript">-->
+<!--        //获取当前时间-->
+<!--        var date = new Date();-->
+<!--        //格式化为时间字符串-->
+<!--        var date1 = date.toString();-->
+<!--        var str = date1;-->
+<!--        //获得第一个:的位置-->
+<!--        var index = str.indexOf(":");-->
+<!--        //截取字符串,得到结果result-->
+<!--        var hour = str.substring(index-2,index);-->
+<!--        var min = str.substring(index+1,index+3);-->
+<!--        //根据小时和分钟数大致线性回归“已通行人数”，17点时为150人，18点为175人-->
+<!--        var today_min = hour * 60 + min * 1-->
+<!--        var times_id = Math.round(- 275 + 0.4167 * today_min)-->
+<!--        document.getElementById("times_id").innerText = times_id;-->
 
-    </script>
+<!--    </script>-->
+
+    <script>
+var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
+ db.transaction(function (tx) {
+    tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)');
+    tx.executeSql('INSERT INTO LOGS (id, log) VALUES (0, "0")');
+ });
+
+var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
+ db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM LOGS WHERE id=0', [], function (tx, results) {
+       var len = results.rows.length, i;
+       for (i = 0; i < len; i++){
+          var msg = results.rows.item(i).log;
+          document.querySelector('#times_id').innerHTML =  msg;
+       }
+    }, null);
+ });
+</script>
+
+
 </div>
 <div id="colorDIV" class="page-hd cl6 cl6_blue" permit="blue">
-    <p style=" color:#fff;   font-size: 25px;  font-weight: 200;" align="center" class="bUtonadaLij">予以通行</p>
+    <p style=" color:#fff;   font-size: 25px;  font-weight: 200;" align="center" class="bUtonadaLij" onclick="change_number_plus_10()">予以通行</p>
     <p style=" color:#fff;   font-size: 15px;  font-weight: 200; text-align: center; margin-top: 5px;"
-       onclick="change_number()">随机码：ut99oim</p>
+       onclick="change_number_to_0()">随机码：ut99oim</p>
     <script>
-function change_number(){
-	var x;
-	var person=prompt("input a number");
-	if (person!=null && person!=""){
-	    x=person;
-	    document.getElementById("times_id").innerHTML=x;
-	}
+
+function change_number_plus_10(){
+	    var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
+ db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM LOGS WHERE id=0', [], function (tx, results) {
+       var len = results.rows.length, i;
+       for (i = 0; i < len; i++){
+          var x = results.rows.item(i).log;
+          var x = Number.parseInt(x)+10;
+          var x = x.toString();
+          tx.executeSql('UPDATE LOGS SET log='+x+' WHERE id=0');
+
+       }
+    }, null);
+ });
 }
+
+
+function change_number_to_0(){
+	    var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
+ db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM LOGS WHERE id=0', [], function (tx, results) {
+       var len = results.rows.length, i;
+       for (i = 0; i < len; i++){
+          var x = results.rows.item(i).log;
+          var x = 0+1;
+          var x = x.toString();
+          tx.executeSql('UPDATE LOGS SET log='+x+' WHERE id=0');
+
+       }
+    }, null);
+ });
+}
+
     </script>
 
 </div>
@@ -160,4 +212,24 @@ function change_number(){
 
 
 </body>
+
+
+
+
+
+<script>
+    var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
+ db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM LOGS WHERE id=0', [], function (tx, results) {
+       var len = results.rows.length, i;
+       for (i = 0; i < len; i++){
+          var x = results.rows.item(i).log;
+          var x = Number.parseInt(x)+1;
+          var x = x.toString();
+          tx.executeSql('UPDATE LOGS SET log='+x+' WHERE id=0');
+
+       }
+    }, null);
+ });
+</script>
 </html>  
