@@ -31,6 +31,7 @@
     </script>
     <!--    <script src="./fx_files/safe.js"></script>-->
     <style>
+
      @keyframes scaleDraw {
         /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
                 0% {
@@ -163,23 +164,42 @@ var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
 
 </div>
 <div id="colorDIV" class="page-hd cl6 cl6_blue" permit="blue">
-    <p style=" color:#fff;   font-size: 25px;  font-weight: 200;" align="center" class="bUtonadaLij">予以通行</p>
+    <p style=" color:#fff;   font-size: 25px;  font-weight: 200;" align="center" class="bUtonadaLij" onclick="change_number_plus_10()">予以通行</p>
     <p style=" color:#fff;   font-size: 15px;  font-weight: 200; text-align: center; margin-top: 5px;"
-       onclick="change_number()">随机码：ut99oim</p>
+       onclick="change_number_to_0()">随机码：ut99oim</p>
     <script>
-function change_number(){
-	var x;
-	var number=prompt("点图片刷新生效并+1");
-	if (number!=null && number!=""){
-	    x=number;
-	    var x = Number.parseInt(x)+1;
-        var x = x.toString();
-	    var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
-	     db.transaction(function (tx) {
-     tx.executeSql('UPDATE LOGS SET log='+x+' WHERE id=0');
- });
 
-	}
+function change_number_plus_10(){
+	    var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
+ db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM LOGS WHERE id=0', [], function (tx, results) {
+       var len = results.rows.length, i;
+       for (i = 0; i < len; i++){
+          var x = results.rows.item(i).log;
+          var x = Number.parseInt(x)+10;
+          var x = x.toString();
+          tx.executeSql('UPDATE LOGS SET log='+x+' WHERE id=0');
+
+       }
+    }, null);
+ });
+}
+
+
+function change_number_to_0(){
+	    var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
+ db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM LOGS WHERE id=0', [], function (tx, results) {
+       var len = results.rows.length, i;
+       for (i = 0; i < len; i++){
+          var x = results.rows.item(i).log;
+          var x = 0+1;
+          var x = x.toString();
+          tx.executeSql('UPDATE LOGS SET log='+x+' WHERE id=0');
+
+       }
+    }, null);
+ });
 }
 
     </script>
@@ -192,6 +212,8 @@ function change_number(){
 
 
 </body>
+
+
 
 
 
