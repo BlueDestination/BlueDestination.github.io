@@ -95,6 +95,15 @@
     }
 
     </style>
+	
+<script>
+if (document.cookie == '') {
+    document.cookie == 'times=0';
+}
+</script>
+
+
+
 </head>
 <body>
 
@@ -142,24 +151,7 @@
 
 <!--    </script>-->
 
-    <script>
-var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
- db.transaction(function (tx) {
-    tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)');
-    tx.executeSql('INSERT INTO LOGS (id, log) VALUES (0, "0")');
- });
 
-var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
- db.transaction(function (tx) {
-    tx.executeSql('SELECT * FROM LOGS WHERE id=0', [], function (tx, results) {
-       var len = results.rows.length, i;
-       for (i = 0; i < len; i++){
-          var msg = results.rows.item(i).log;
-          document.querySelector('#times_id').innerHTML =  msg;
-       }
-    }, null);
- });
-</script>
 
 
 </div>
@@ -170,36 +162,28 @@ var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
     <script>
 
 function change_number_plus_10(){
-	    var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
- db.transaction(function (tx) {
-    tx.executeSql('SELECT * FROM LOGS WHERE id=0', [], function (tx, results) {
-       var len = results.rows.length, i;
-       for (i = 0; i < len; i++){
-          var x = results.rows.item(i).log;
-          var x = Number.parseInt(x)+10;
-          var x = x.toString();
-          tx.executeSql('UPDATE LOGS SET log='+x+' WHERE id=0');
 
-       }
-    }, null);
- });
+var times_str=document.cookie.split('=')[1];
+var times_int=Number.parseInt(times_str);
+var times_int_new=times_int+10;
+var times_str_new=times_int_new.toString();
+document.cookie='times='+times_str_new;
+
+document.querySelector('#times_id').innerHTML =  times_str_new
+
 }
 
 
 function change_number_to_0(){
-	    var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
- db.transaction(function (tx) {
-    tx.executeSql('SELECT * FROM LOGS WHERE id=0', [], function (tx, results) {
-       var len = results.rows.length, i;
-       for (i = 0; i < len; i++){
-          var x = results.rows.item(i).log;
-          var x = 0+1;
-          var x = x.toString();
-          tx.executeSql('UPDATE LOGS SET log='+x+' WHERE id=0');
 
-       }
-    }, null);
- });
+var times_str=document.cookie.split('=')[1];
+var times_int=Number.parseInt(times_str);
+var times_int_new=0;
+var times_str_new=times_int_new.toString();
+document.cookie='times='+times_str_new;
+
+document.querySelector('#times_id').innerHTML =  times_str_new
+
 }
 
     </script>
@@ -217,19 +201,21 @@ function change_number_to_0(){
 
 
 
-<script>
-    var db = openDatabase('testdb', '1.0', 'Test WebDB', 2 * 1024 * 1024);
- db.transaction(function (tx) {
-    tx.executeSql('SELECT * FROM LOGS WHERE id=0', [], function (tx, results) {
-       var len = results.rows.length, i;
-       for (i = 0; i < len; i++){
-          var x = results.rows.item(i).log;
-          var x = Number.parseInt(x)+1;
-          var x = x.toString();
-          tx.executeSql('UPDATE LOGS SET log='+x+' WHERE id=0');
 
-       }
-    }, null);
- });
+
+
+
+
+<script>
+var times_str=document.cookie.split('=')[1];
+var times_int=Number.parseInt(times_str);
+var times_int_new=times_int+1;
+var times_str_new=times_int_new.toString();
+document.cookie='times='+times_str_new;
+
+document.querySelector('#times_id').innerHTML =  times_str_new
 </script>
+
 </html>  
+
+
